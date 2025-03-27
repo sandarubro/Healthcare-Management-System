@@ -1,9 +1,9 @@
-package com.example.voteX.controller;
+package com.example.HealthHub.controller;
 
 
 
-import com.example.voteX.model.User;
-import com.example.voteX.service.UserService;
+import com.example.HealthHub.model.User;
+import com.example.HealthHub.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
