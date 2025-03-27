@@ -1,13 +1,13 @@
-package com.example.voteX;
+package com.example.HealthHub;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VoteXApplication {
+public class HealthHubApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VoteXApplication.class, args);
+		SpringApplication.run(HealthHubApplication.class, args);
 	}
 
 }

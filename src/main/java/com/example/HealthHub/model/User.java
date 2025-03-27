@@ -1,4 +1,4 @@
-package com.example.voteX.model;
+package com.example.HealthHub.model;
 
 
 

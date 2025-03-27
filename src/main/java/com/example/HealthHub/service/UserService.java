@@ -1,9 +1,9 @@
-package com.example.voteX.service;
+package com.example.HealthHub.service;
 
 
 
-import com.example.voteX.model.User;
-import com.example.voteX.repository.UserRepository;
+import com.example.HealthHub.model.User;
+import com.example.HealthHub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
