@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Info</title>
+
+  <style>
+
+.group-div.active .group-item3 {
+background-color: var(--color-darkslateblue);
+}
+
+.group-div.active .patients {
+color: var(--color-white);
+}
+  </style>
+
+</head>
+<body>
+<!-- Container where layout will be loaded -->
+<div id="layout-container"></div>
+
+<script>
+  // Fetch and inject layout.html
+  fetch('layout.html')
+      .then(response => response.text())
+      .then(html => {
+          document.getElementById('layout-container').innerHTML = html;
+          // Highlight "Patient" menu as active
+          const patientMenu = document.querySelector('.group-div');
+          if (patientMenu) {
+              patientMenu.classList.add('active');
+              patientMenu.querySelector('.group-item3').classList.add('active');
+          }
+      })
+      .catch(err => console.error('Failed to load layout:', err));
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Otomanopee One:wght@400&display=swap" />
+    <title> layout </title>
+
+    <style>
+
+        body {
+              margin: 0;
+              line-height: normal;
+        }
+
+
+        :root {
+
+              /* Fonts */
+              --font-otomanopee-one: 'Otomanopee One';
+              --font-poppins: Poppins;
+
+              /* font sizes */
+              --font-size-xl: 20px;
+              --font-size-31xl: 50px;
+
+              /* Colors */
+              --color-black: #000;
+              --color-darkslateblue: #3b4ba0;
+              --color-gainsboro: #d9d9d9;
+              --color-white: #fff;
+
+        }
+
+        .group-child {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 868px;
+}
+.group-item1 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 68px;
+}
+.group-item1:hover {
+    background-color: var(--color-darkslateblue);
+    cursor: pointer;
+}
+.group-item2 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 68px;
+}
+.group-item2:hover {
+    background-color: var(--color-darkslateblue);
+    cursor: pointer;
+}
+.group-item3 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 68px;
+}
+.group-item3:hover {
+    background-color: var(--color-darkslateblue);
+    cursor: pointer;
+}
+.group-item4 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 68px;
+}
+.group-item4:hover {
+    background-color: var(--color-darkslateblue);
+    cursor: pointer;
+}
+.group-item5 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 68px;
+}
+.group-item5:hover {
+    background-color: var(--color-darkslateblue);
+    cursor: pointer;
+}
+.group-item6 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 68px;
+}
+.group-item6:hover {
+    background-color: var(--color-darkslateblue);
+    cursor: pointer;
+}
+.patients {
+  	position: absolute;
+  	top: 27.94%;
+  	left: 12.94%;
+}
+.rectangle-group {
+  	position: absolute;
+  	top: 214px;
+  	left: 0px;
+  	width: 340px;
+  	height: 68px;
+
+}
+.rectangle-group:hover .patients {
+    color: var(--color-white);
+}
+.patients1 {
+  	position: absolute;
+  	top: 27.94%;
+  	left: 38.24%;
+}
+.box-arrow-in-right-icon {
+  	position: absolute;
+  	top: 19px;
+  	left: 60px;
+  	width: 30px;
+  	height: 30px;
+}
+.rectangle-container {
+  	position: absolute;
+  	top: 735px;
+  	left: 0px;
+  	width: 340px;
+  	height: 68px;
+
+}
+.rectangle-container:hover .patients1 {
+    color: var(--color-white);
+}
+.rectangle-container:hover .box-arrow-in-right-icon {
+    filter: brightness(0) invert(1); /* Turns the icon white */
+}
+.group-div {
+  	position: absolute;
+  	top: 282px;
+  	left: 0px;
+  	width: 340px;
+  	height: 68px;
+}
+.group-div:hover .patients {
+    color: var(--color-white);
+}
+.rectangle-parent1 {
+  	position: absolute;
+  	top: 350px;
+  	left: 0px;
+  	width: 340px;
+  	height: 68px;
+}
+.rectangle-parent1:hover .patients {
+    color: var(--color-white);
+}
+.rectangle-parent2 {
+  	position: absolute;
+  	top: 418px;
+  	left: 0px;
+  	width: 340px;
+  	height: 68px;
+}
+.rectangle-parent2:hover .patients {
+    color: var(--color-white);
+}
+.group-child3 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	background-color: var(--color-gainsboro);
+  	width: 340px;
+  	height: 131px;
+
+}
+.m {
+  	position: absolute;
+  	top: 22px;
+  	left: 0px;
+  	letter-spacing: 0.5px;
+  	line-height: 24px;
+  	display: flex;
+  	align-items: center;
+  	width: 47px;
+  	height: 56px;
+}
+.s {
+  	position: absolute;
+  	top: 27px;
+  	left: 47px;
+  	letter-spacing: 0.5px;
+  	line-height: 24px;
+  	display: flex;
+  	align-items: center;
+  	width: 41px;
+  	height: 51px;
+}
+.div {
+  	position: absolute;
+  	top: 0px;
+  	left: 22px;
+  	font-size: 62px;
+  	letter-spacing: 0.5px;
+  	line-height: 24px;
+  	color: var(--color-white);
+  	display: flex;
+  	align-items: center;
+  	width: 28px;
+  	height: 37px;
+}
+.logo {
+  	position: absolute;
+  	top: 15px;
+  	left: 36px;
+  	width: 88px;
+  	height: 78px;
+  	cursor: pointer;
+}
+.rectangle-parent3 {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	width: 340px;
+  	height: 131px;
+  	font-size: var(--font-size-31xl);
+  	color: var(--color-darkslateblue);
+  	font-family: var(--font-otomanopee-one);
+
+}
+.rectangle-parent {
+  	position: absolute;
+  	top: 0px;
+  	left: 0px;
+  	width: 340px;
+  	height: 868px;
+}
+.dashboard {
+  	width: 100%;
+  	position: relative;
+  	background-color: var(--color-white);
+  	height: 868px;
+  	overflow: hidden;
+  	text-align: left;
+  	font-size: var(--font-size-xl);
+  	color: var(--color-black);
+  	font-family: var(--font-poppins);
+}
+.rectangle-parent4 {
+position: absolute;
+top: 486px;
+left: 0px;
+width: 340px;
+height: 68px;
+}
+.rectangle-parent4:hover .patients {
+    color: var(--color-white);
+}
+
+
+
+
+    </style>
+
+
+
+
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="rectangle-parent">
+        <div class="group-child">
+        </div>
+        <div class="rectangle-group" onclick="window.location.href='patient_info.html'">
+            <div class="group-item1 ">
+                <div class="patients">Patient</div>
+            </div>
+
+        </div>
+        <div class="rectangle-container">
+            <div class="group-item2">
+                <div class="patients1">Logout</div>
+                <img class="box-arrow-in-right-icon" alt="" src="/static/images/box-arrow-in-right.svg">
+            </div>
+
+        </div>
+        <div class="group-div" onclick="window.location.href='doctor_info.html'">
+            <div class="group-item3">
+                <div class="patients">Doctor</div>
+            </div>
+
+        </div>
+        <div class="rectangle-parent1" onclick="window.location.href='appointment_info.html'">
+            <div class="group-item4">
+                <div class="patients">Appointment</div>
+            </div>
+
+        </div>
+        <div class="rectangle-parent2" onclick="window.location.href='payment_info.html'">
+            <div class="group-item5">
+                <div class="patients">Payment</div>
+            </div>
+
+        </div>
+        <div class="rectangle-parent4" onclick="window.location.href='admin_info.html'">
+            <div class="group-item6">
+                <div class="patients">Admin</div>
+            </div>
+
+        </div>
+        <div class="rectangle-parent3">
+            <div class="group-child3">
+                <div class="logo">
+                    <div class="m">M</div>
+                    <div class="s">S</div>
+                    <div class="div">+</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+
+
+
+
+</body>
+</html>
