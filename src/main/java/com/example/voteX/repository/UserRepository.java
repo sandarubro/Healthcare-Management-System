@@ -1,8 +1,8 @@
-package com.example.voteX.repository;
+package com.example.HealthHub.repository;
 
 
 
-import com.example.voteX.model.User;
+import com.example.HealthHub.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
