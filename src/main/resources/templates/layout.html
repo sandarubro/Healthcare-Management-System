@@ -1,358 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Layout</title>
 
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Otomanopee One:wght@400&display=swap" />
-    <title> layout </title>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Otomanopee+One:wght@400&display=swap">
 
     <style>
+        :root {
+            /* Fonts */
+            --font-otomanopee-one: 'Otomanopee One';
+            --font-poppins: Poppins;
+
+            /* font sizes */
+            --font-size-xl: 20px;
+            --font-size-31xl: 50px;
+
+            /* Colors */
+            --color-black: #000;
+            --color-darkslateblue: #3b4ba0;
+            --color-gainsboro: #d9d9d9;
+            --color-white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-              margin: 0;
-              line-height: normal;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: var(--font-poppins);
+            background-color: var(--color-white);
         }
 
-
-        :root {
-
-              /* Fonts */
-              --font-otomanopee-one: 'Otomanopee One';
-              --font-poppins: Poppins;
-
-              /* font sizes */
-              --font-size-xl: 20px;
-              --font-size-31xl: 50px;
-
-              /* Colors */
-              --color-black: #000;
-              --color-darkslateblue: #3b4ba0;
-              --color-gainsboro: #d9d9d9;
-              --color-white: #fff;
-
+        /* Scaling container */
+        .scaling-container {
+            position: relative;
+            width: 1920px;
+            height: 868px;
+            transform-origin: top left;
+            transform: scale(var(--scale-factor));
         }
 
-        .group-child {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 868px;
-}
-.group-item1 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 68px;
-}
-.group-item1:hover {
-    background-color: var(--color-darkslateblue);
-    cursor: pointer;
-}
-.group-item2 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 68px;
-}
-.group-item2:hover {
-    background-color: var(--color-darkslateblue);
-    cursor: pointer;
-}
-.group-item3 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 68px;
-}
-.group-item3:hover {
-    background-color: var(--color-darkslateblue);
-    cursor: pointer;
-}
-.group-item4 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 68px;
-}
-.group-item4:hover {
-    background-color: var(--color-darkslateblue);
-    cursor: pointer;
-}
-.group-item5 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 68px;
-}
-.group-item5:hover {
-    background-color: var(--color-darkslateblue);
-    cursor: pointer;
-}
-.group-item6 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 68px;
-}
-.group-item6:hover {
-    background-color: var(--color-darkslateblue);
-    cursor: pointer;
-}
-.patients {
-  	position: absolute;
-  	top: 27.94%;
-  	left: 12.94%;
-}
-.rectangle-group {
-  	position: absolute;
-  	top: 214px;
-  	left: 0px;
-  	width: 340px;
-  	height: 68px;
+        /* Dashboard container */
+        .dashboard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-white);
+            overflow: hidden;
+        }
 
-}
-.rectangle-group:hover .patients {
-    color: var(--color-white);
-}
-.patients1 {
-  	position: absolute;
-  	top: 27.94%;
-  	left: 38.24%;
-}
-.box-arrow-in-right-icon {
-  	position: absolute;
-  	top: 19px;
-  	left: 60px;
-  	width: 30px;
-  	height: 30px;
-}
-.rectangle-container {
-  	position: absolute;
-  	top: 735px;
-  	left: 0px;
-  	width: 340px;
-  	height: 68px;
+        /* Sidebar styles */
+        .sidebar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 340px;
+            height: 868px;
+            background-color: var(--color-gainsboro);
+        }
 
-}
-.rectangle-container:hover .patients1 {
-    color: var(--color-white);
-}
-.rectangle-container:hover .box-arrow-in-right-icon {
-    filter: brightness(0) invert(1); /* Turns the icon white */
-}
-.group-div {
-  	position: absolute;
-  	top: 282px;
-  	left: 0px;
-  	width: 340px;
-  	height: 68px;
-}
-.group-div:hover .patients {
-    color: var(--color-white);
-}
-.rectangle-parent1 {
-  	position: absolute;
-  	top: 350px;
-  	left: 0px;
-  	width: 340px;
-  	height: 68px;
-}
-.rectangle-parent1:hover .patients {
-    color: var(--color-white);
-}
-.rectangle-parent2 {
-  	position: absolute;
-  	top: 418px;
-  	left: 0px;
-  	width: 340px;
-  	height: 68px;
-}
-.rectangle-parent2:hover .patients {
-    color: var(--color-white);
-}
-.group-child3 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	background-color: var(--color-gainsboro);
-  	width: 340px;
-  	height: 131px;
+        /* Menu items */
+        .menu-item {
+            position: absolute;
+            width: 340px;
+            height: 68px;
+            background-color: var(--color-gainsboro);
+        }
 
-}
-.m {
-  	position: absolute;
-  	top: 22px;
-  	left: 0px;
-  	letter-spacing: 0.5px;
-  	line-height: 24px;
-  	display: flex;
-  	align-items: center;
-  	width: 47px;
-  	height: 56px;
-}
-.s {
-  	position: absolute;
-  	top: 27px;
-  	left: 47px;
-  	letter-spacing: 0.5px;
-  	line-height: 24px;
-  	display: flex;
-  	align-items: center;
-  	width: 41px;
-  	height: 51px;
-}
-.div {
-  	position: absolute;
-  	top: 0px;
-  	left: 22px;
-  	font-size: 62px;
-  	letter-spacing: 0.5px;
-  	line-height: 24px;
-  	color: var(--color-white);
-  	display: flex;
-  	align-items: center;
-  	width: 28px;
-  	height: 37px;
-}
-.logo {
-  	position: absolute;
-  	top: 15px;
-  	left: 36px;
-  	width: 88px;
-  	height: 78px;
-  	cursor: pointer;
-}
-.rectangle-parent3 {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	width: 340px;
-  	height: 131px;
-  	font-size: var(--font-size-31xl);
-  	color: var(--color-darkslateblue);
-  	font-family: var(--font-otomanopee-one);
+        .menu-item:hover {
+            background-color: var(--color-darkslateblue);
+            cursor: pointer;
+        }
 
-}
-.rectangle-parent {
-  	position: absolute;
-  	top: 0px;
-  	left: 0px;
-  	width: 340px;
-  	height: 868px;
-}
-.dashboard {
+        .menu-text {
+            position: absolute;
+            top: 27.94%;
+            left: 12.94%;
+        }
+
+        .menu-item:hover .menu-text {
+            color: var(--color-white);
+        }
+
+        /* Specific menu item positions */
+        .logo-area {
+            top: 0;
+            height: 131px;
+        }
+
+        .patient-menu {
+            top: 214px;
+        }
+
+        .doctor-menu {
+            top: 282px;
+        }
+
+        .appointment-menu {
+            top: 350px;
+        }
+
+        .payment-menu {
+            top: 418px;
+        }
+
+        .admin-menu {
+            top: 486px;
+        }
+
+        .logout-menu {
+            top: 735px;
+        }
+
+        .logout-menu .menu-text {
+            left: 38.24%;
+        }
+
+        .logout-icon {
+            position: absolute;
+            top: 19px;
+            left: 60px;
+            width: 30px;
+            height: 30px;
+        }
+
+        .logout-menu:hover .logout-icon {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Logo styles */
+        .logo {
+            position: absolute;
+            top: 15px;
+            left: 36px;
+            width: 88px;
+            height: 78px;
+            cursor: pointer;
+        }
+
+        .m {
+            position: absolute;
+            top: 22px;
+            left: 0;
+            font-size: var(--font-size-31xl);
+            letter-spacing: 0.5px;
+            color: var(--color-darkslateblue);
+            font-family: var(--font-otomanopee-one);
+        }
+
+        .s {
+            position: absolute;
+            top: 25px;
+            left: 47px;
+            font-size: var(--font-size-31xl);
+            letter-spacing: 0.5px;
+            color: var(--color-darkslateblue);
+            font-family: var(--font-otomanopee-one);
+        }
+
+        .plus {
+            position: absolute;
+            top: 27px;
+            left: 88px;
+            font-size: var(--font-size-31xl);
+            letter-spacing: 0.5px;
+            color: var(--color-white);
+            font-family: var(--font-otomanopee-one);
+        }
+
+        .logo1-1-icon {
   	width: 100%;
   	position: relative;
-  	background-color: var(--color-white);
-  	height: 868px;
+  	max-width: 100%;
   	overflow: hidden;
-  	text-align: left;
-  	font-size: var(--font-size-xl);
-  	color: var(--color-black);
-  	font-family: var(--font-poppins);
+  	height: 78px;
+  	top: 10px;
+  	right: 80px;
 }
-.rectangle-parent4 {
-position: absolute;
-top: 486px;
-left: 0px;
-width: 340px;
-height: 68px;
-}
-.rectangle-parent4:hover .patients {
-    color: var(--color-white);
-}
-
 
 
 
     </style>
-
-
-
-
 </head>
 <body>
+<!-- Scaling container maintains 1920×868 dimensions -->
+<div class="scaling-container">
+    <div class="dashboard">
+        <div class="sidebar">
+            <!-- Logo Area -->
+            <img class="logo1-1-icon" alt="" src="/static/images/logo1.svg">
 
-<div class="dashboard">
-    <div class="rectangle-parent">
-        <div class="group-child">
-        </div>
-        <div class="rectangle-group" onclick="window.location.href='patient_info.html'">
-            <div class="group-item1 ">
-                <div class="patients">Patient</div>
+
+            <!-- Menu Items -->
+            <div class="menu-item patient-menu" onclick="window.location.href='patient_info.html'">
+                <div class="menu-text">Patient</div>
             </div>
 
-        </div>
-        <div class="rectangle-container">
-            <div class="group-item2">
-                <div class="patients1">Logout</div>
-                <img class="box-arrow-in-right-icon" alt="" src="/static/images/box-arrow-in-right.svg">
+            <div class="menu-item doctor-menu" onclick="window.location.href='doctor_info.html'">
+                <div class="menu-text">Doctor</div>
             </div>
 
-        </div>
-        <div class="group-div" onclick="window.location.href='doctor_info.html'">
-            <div class="group-item3">
-                <div class="patients">Doctor</div>
+            <div class="menu-item appointment-menu" onclick="window.location.href='appointment_info.html'">
+                <div class="menu-text">Appointment</div>
             </div>
 
-        </div>
-        <div class="rectangle-parent1" onclick="window.location.href='appointment_info.html'">
-            <div class="group-item4">
-                <div class="patients">Appointment</div>
+            <div class="menu-item payment-menu" onclick="window.location.href='payment_info.html'">
+                <div class="menu-text">Payment</div>
             </div>
 
-        </div>
-        <div class="rectangle-parent2" onclick="window.location.href='payment_info.html'">
-            <div class="group-item5">
-                <div class="patients">Payment</div>
+            <div class="menu-item admin-menu" onclick="window.location.href='admin_info.html'">
+                <div class="menu-text">Admin</div>
             </div>
 
-        </div>
-        <div class="rectangle-parent4" onclick="window.location.href='admin_info.html'">
-            <div class="group-item6">
-                <div class="patients">Admin</div>
+            <div class="menu-item logout-menu">
+                <div class="menu-text">Logout</div>
+                <img class="logout-icon" alt="Logout" src="/static/images/box-arrow-in-right.svg">
             </div>
-
-        </div>
-        <div class="rectangle-parent3">
-            <div class="group-child3">
-                <div class="logo">
-                    <div class="m">M</div>
-                    <div class="s">S</div>
-                    <div class="div">+</div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
 
-
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+<script>
+    // Calculate and apply scaling factor
+    function updateScale() {
+        const container = document.querySelector('.scaling-container');
+        const scale = window.innerWidth / 1920;
+        container.style.setProperty('--scale-factor', scale);
 
+        // Adjust body height to account for scaling
+        document.body.style.height = `${868 * scale}px`;
+    }
 
+    // Initial scale calculation
+    updateScale();
 
+    // Update scale on window resize
+    window.addEventListener('resize', updateScale);
 
-
+    // Prevent zooming
+    document.addEventListener('wheel', function(e) {
+        if (e.ctrlKey) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+</script>
 </body>
 </html>
