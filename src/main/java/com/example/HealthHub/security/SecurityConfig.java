@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -21,16 +28,42 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/static/css/**", "/js/**").permitAll() // Allow access to /register and static resources
-                        .anyRequest().authenticated() // Require authentication for all other requests
+                        .requestMatchers(
+                                "/api/**",
+                                "/register/**",
+                                "/static/**",
+                                "/error",
+                                "/error/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll // Use the default login page provided by Spring Security
-                )
-                .httpBasic(httpBasic -> {}); // Enable HTTP Basic Authentication (optional)
+                .httpBasic(withDefaults())
+                .formLogin(AbstractHttpConfigurer::disable);
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // Allow both common development origins
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000",    // React/Vite default
+                "http://localhost:63342",   // WebStorm/IntelliJ default
+                "http://127.0.0.1:8080",
+                "http://[::1]:8080"
+        ));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L); // 1 hour cache
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
@@ -40,10 +73,9 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        // Define users with username, password, and roles
         UserDetails user = User.withUsername("user")
-                .password(passwordEncoder().encode("password")) // Encode the password
-                .roles("USER") // Assign roles
+                .password(passwordEncoder().encode("password"))
+                .roles("USER")
                 .build();
 
         UserDetails admin = User.withUsername("admin")
@@ -51,7 +83,6 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        // Store users in memory
         return new InMemoryUserDetailsManager(user, admin);
     }
 }

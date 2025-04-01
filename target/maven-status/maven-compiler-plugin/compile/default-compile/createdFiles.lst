@@ -1,6 +1,6 @@
-com\example\HealthHub\model\User.class
-com\example\HealthHub\security\SecurityConfig.class
-com\example\HealthHub\service\UserService.class
-com\example\HealthHub\controller\UserController.class
 com\example\HealthHub\HealthHubApplication.class
-com\example\HealthHub\repository\UserRepository.class
+com\example\HealthHub\service\AdminService.class
+com\example\HealthHub\security\SecurityConfig.class
+com\example\HealthHub\controller\AdminController.class
+com\example\HealthHub\model\Admin.class
+com\example\HealthHub\repository\AdminRepository.class

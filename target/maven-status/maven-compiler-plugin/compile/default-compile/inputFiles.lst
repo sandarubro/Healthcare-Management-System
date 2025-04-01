@@ -1,6 +1,6 @@
-C:\Users\piuma\HealthHub\src\main\java\com\example\HealthHub\controller\UserController.java
-C:\Users\piuma\HealthHub\src\main\java\com\example\HealthHub\model\User.java
-C:\Users\piuma\HealthHub\src\main\java\com\example\HealthHub\repository\UserRepository.java
-C:\Users\piuma\HealthHub\src\main\java\com\example\HealthHub\security\SecurityConfig.java
-C:\Users\piuma\HealthHub\src\main\java\com\example\HealthHub\service\UserService.java
-C:\Users\piuma\HealthHub\src\main\java\com\example\HealthHub\HealthHubApplication.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\controller\AdminController.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\HealthHubApplication.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\model\Admin.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\repository\AdminRepository.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\security\SecurityConfig.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\service\AdminService.java
