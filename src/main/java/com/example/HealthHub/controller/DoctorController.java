@@ -1,51 +1,49 @@
 package com.example.HealthHub.controller;
 
 import com.example.HealthHub.model.Doctor;
-import com.example.HealthHub.repository.DoctorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.HealthHub.service.DoctorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/doctors")
+@RequestMapping("/api/doctors")
 @CrossOrigin
-
 public class DoctorController {
+    private final DoctorService doctorService;
 
-    @Autowired
-    private DoctorRepository doctorRepository;
+    public DoctorController(DoctorService doctorService) {
+        this.doctorService = doctorService;
+    }
 
     @PostMapping
-    public Doctor addDoctor(@RequestBody Doctor doctor) {
-        return doctorRepository.save(doctor);
+    public ResponseEntity<Doctor> createDoctor(@RequestBody Doctor doctor) {
+        Doctor savedDoctor = doctorService.createDoctor(doctor);
+        return ResponseEntity.ok(savedDoctor);
     }
 
     @GetMapping
-    public List<Doctor> getAllDoctors() {
-        return doctorRepository.findAll();
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
+        List<Doctor> doctors = doctorService.getAllDoctors();
+        return ResponseEntity.ok(doctors);
     }
 
     @GetMapping("/{id}")
-    public Optional<Doctor> getDoctorById(@PathVariable Long id) {
-        return doctorRepository.findById(id);
+    public ResponseEntity<Doctor> getDoctorById(@PathVariable Long id) {
+        return ResponseEntity.ok(doctorService.getDoctorById(id));
     }
 
     @PutMapping("/{id}")
-    public Doctor updateDoctor(@PathVariable Long id, @RequestBody Doctor doctorDetails) {
-        return doctorRepository.findById(id).map(doctor -> {
-            doctor.setDoctorName(doctorDetails.getDoctorName());
-            doctor.setEmail(doctorDetails.getEmail());
-            doctor.setSpecialization(doctorDetails.getSpecialization());
-            doctor.setPhoneNumber(doctorDetails.getPhoneNumber());
-            doctor.setPassword(doctorDetails.getPassword());
-            return doctorRepository.save(doctor);
-        }).orElseThrow(() -> new RuntimeException("Doctor not found"));
+    public ResponseEntity<Doctor> updateDoctor(
+            @PathVariable Long id,
+            @RequestBody Doctor doctorDetails) {
+        return ResponseEntity.ok(doctorService.updateDoctor(id, doctorDetails));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDoctor(@PathVariable Long id) {
-        doctorRepository.deleteById(id);
+    public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
+        doctorService.deleteDoctor(id);
+        return ResponseEntity.noContent().build();
     }
 }

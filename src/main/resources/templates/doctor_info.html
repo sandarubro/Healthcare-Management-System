@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Doctor Information</title>
+    <title>Admin Information</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -120,14 +120,14 @@
         }
 
         /* New Table Styles */
-        .custom-doctor-table {
+        .custom-admin-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
             background-color: var(--color-white);
         }
 
-        .custom-doctor-table thead th {
+        .custom-admin-table thead th {
             background-color: transparent;
             border-bottom: 1px solid var(--color-black);
 
@@ -136,12 +136,12 @@
             color: var(--color-black);
         }
 
-        .custom-doctor-table tbody tr {
+        .custom-admin-table tbody tr {
             height: 65px;
             border-bottom: 1px solid var(--color-black);
         }
 
-        .custom-doctor-table tbody td {
+        .custom-admin-table tbody td {
             padding: 15px;
             vertical-align: middle;
             border-bottom: 1px solid var(--color-black);
@@ -226,18 +226,18 @@
                     </div>
                 </div>
                 <div class="patients-wrapper">
-                    <div class="patients">Doctor Information</div>
+                    <div class="patients">Dr. Info</div>
                 </div>
             </div>
 
             <!-- Updated Table Structure -->
             <div class="rectangle-group">
                 <div class="table-responsive">
-                    <table class="table table-borderless custom-doctor-table">
+                    <table class="table table-borderless custom-admin-table">
                         <thead>
                         <tr>
                             <th style="width: 20%">Doctor Name</th>
-                            <th style="width: 20%">Specialization</th>
+                            <th style="width: 15%">Specialization</th>
                             <th style="width: 15%">Phone Number</th>
                             <th style="width: 20%">Email</th>
                             <th style="width: 10%" >Action</th>
@@ -247,7 +247,7 @@
                         <!-- Row 1 -->
                         <tr>
                             <td>Piumal Fernando</td>
-                            <td>Cardiologist</td>
+                            <td>0775688755</td>
                             <td>0775688755</td>
                             <td>example@gmail.com</td>
                             <td class="text-end">
@@ -265,7 +265,7 @@
                         <!-- Row 2 -->
                         <tr>
                             <td>Hasith Madhushan</td>
-                            <td>Cardiologist</td>
+                            <td>0775688755</td>
                             <td>0775688755</td>
                             <td>example@gmail.com</td>
                             <td class="text-end">
@@ -283,7 +283,7 @@
                         <!-- Row 3 -->
                         <tr>
                             <td>Chathura De Silva</td>
-                            <td>Cardiologist</td>
+                            <td>0775688755</td>
                             <td>0775688755</td>
                             <td>example@gmail.com</td>
                             <td class="text-end">
@@ -306,36 +306,36 @@
 </div>
 
 <!-- Bootstrap Modal -->
-<div class="modal fade" id="newDoctorModal" tabindex="-1" aria-labelledby="newDoctorModalLabel" aria-hidden="true">
+<div class="modal fade" id="newAdminModal" tabindex="-1" aria-labelledby="newAdminModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newDoctorModalLabel">New Doctor</h5>
+                <h5 class="modal-title" id="newAdminModalLabel">New Doctor</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="doctorName" placeholder=" " required>
-                        <label for="doctorName">Doctor Name</label>
+                        <input type="text" class="form-control" id="adminName" placeholder=" " required>
+                        <label for="adminName">Doctor Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="specialization" placeholder=" " required>
-                        <label for="specialization">Specialization</label>
+                        <input type="text" class="form-control" id="adminSpecialization" placeholder=" " required>
+                        <label for="adminSpecialization">Specialization</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="doctorEmail" placeholder=" " required>
-                        <label for="doctorEmail">Email</label>
+                        <input type="email" class="form-control" id="adminEmail" placeholder=" " required>
+                        <label for="adminEmail">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="tel" class="form-control" id="doctorPhone" placeholder=" " required>
-                        <label for="doctorPhone">Phone Number</label>
+                        <input type="tel" class="form-control" id="adminPhone" placeholder=" " required>
+                        <label for="adminPhone">Phone Number</label>
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="createDoctorBtn"
+                <button type="button" id="createAdminBtn"
                         class="btn btn-primary"
                         style="background-color: #3b4ba0; border-color: #3b4ba0; border-radius: 5px;"
                         onmouseover="this.style.backgroundColor='white';this.style.color='#3b4ba0';this.style.border='1px solid #3b4ba0'"
@@ -349,30 +349,30 @@
 
 
 <!-- Second Modal (Copy of the first with new ID) -->
-<div class="modal fade" id="editDoctorModal" tabindex="-1" aria-labelledby="editDoctorModalLabel" aria-hidden="true">
+<div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editAdminModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editDoctorModalLabel">Edit Doctor</h5>
+                <h5 class="modal-title" id="editAdminModalLabel">Edit Doctor</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="editDoctorName" placeholder=" " required>
-                        <label for="editDoctorName">Doctor Name</label>
+                        <input type="text" class="form-control" id="editAdminName" placeholder=" " required>
+                        <label for="editAdminName">Doctor Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="editSpecialization" placeholder=" " required>
-                        <label for="editSpecialization">Specialization</label>
+                        <input type="text" class="form-control" id="editAdminSpecialization" placeholder=" " required>
+                        <label for="editAdminSpecialization">Specialization</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="editDoctorEmail" placeholder=" " required>
-                        <label for="editDoctorEmail">Email</label>
+                        <input type="email" class="form-control" id="editAdminEmail" placeholder=" " required>
+                        <label for="editAdminEmail">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="tel" class="form-control" id="editDoctorPhone" placeholder=" " required>
-                        <label for="editDoctorPhone">Phone Number</label>
+                        <input type="tel" class="form-control" id="editAdminPhone" placeholder=" " required>
+                        <label for="editAdminPhone">Phone Number</label>
                     </div>
 
                 </form>
@@ -402,32 +402,32 @@
             document.getElementById('layout-container').innerHTML = data;
             updateScale();
 
-            // Highlight doctor menu
-            const doctorMenu = document.querySelector('.doctor-menu');
-            if (doctorMenu) {
-                doctorMenu.style.backgroundColor = '#3b4ba0';
-                doctorMenu.querySelector('.menu-text').style.color = '#fff';
+            // Highlight admin menu
+            const adminMenu = document.querySelector('.doctor-menu');
+            if (adminMenu) {
+                adminMenu.style.backgroundColor = '#3b4ba0';
+                adminMenu.querySelector('.menu-text').style.color = '#fff';
             }
 
             // Get the modal instance
-            const newDoctorModal = new bootstrap.Modal(document.getElementById('newDoctorModal'));
+            const newAdminModal = new bootstrap.Modal(document.getElementById('newAdminModal'));
 
-            // Add click event to New Doctor button
-            const newDoctorBtn = document.querySelector('.group-child');
-            if (newDoctorBtn) {
-                newDoctorBtn.addEventListener('click', function() {
-                    newDoctorModal.show();
+            // Add click event to New Admin button
+            const newAdminBtn = document.querySelector('.group-child');
+            if (newAdminBtn) {
+                newAdminBtn.addEventListener('click', function() {
+                    newAdminModal.show();
                 });
             }
 
 // Get the modal instance
-            const editDoctorModal = new bootstrap.Modal(document.getElementById('editDoctorModal'));
+            const editAdminModal = new bootstrap.Modal(document.getElementById('editAdminModal'));
 
-            // Add click event to New Doctor button
-            const editDoctorBtn = document.querySelector('.group-child2');
-            if (editDoctorBtn) {
-                editDoctorBtn.addEventListener('click', function() {
-                    editDoctorModal.show();
+            // Add click event to New Admin button
+            const editAdminBtn = document.querySelector('.group-child2');
+            if (editAdminBtn) {
+                editAdminBtn.addEventListener('click', function() {
+                    editAdminModal.show();
                 });
             }
 
@@ -455,19 +455,208 @@
     }, { passive: false });
 </script>
 
+<script>
+    // Real-time validation for doctor registration form
+document.addEventListener('DOMContentLoaded', function() {
+    // Get form elements
+    const doctorName = document.getElementById('adminName');
+    const specialization = document.getElementById('adminSpecialization');
+    const email = document.getElementById('adminEmail');
+    const phone = document.getElementById('adminPhone');
+    const createBtn = document.getElementById('createAdminBtn');
+
+    // Create error message elements
+    const createErrorElement = (input) => {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback';
+        input.parentNode.appendChild(errorDiv);
+        return errorDiv;
+    };
+
+    const nameError = createErrorElement(doctorName);
+    const specializationError = createErrorElement(specialization);
+    const emailError = createErrorElement(email);
+    const phoneError = createErrorElement(phone);
+
+    // Validation functions
+    const validateDoctorName = () => {
+        const value = doctorName.value.trim();
+        if (value.length < 3 || value.length > 50 || !/^[A-Za-z ]+$/.test(value)) {
+            doctorName.classList.add('is-invalid');
+            nameError.textContent = 'Doctor name must be 3-50 alphabetic characters';
+            return false;
+        }
+        doctorName.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validateSpecialization = () => {
+        const value = specialization.value.trim();
+        if (value.length < 3 || value.length > 100 || !/^[A-Za-z ,-]+$/.test(value)) {
+            specialization.classList.add('is-invalid');
+            specializationError.textContent = 'Specialization must be 3-100 valid characters (letters, spaces, commas, hyphens)';
+            return false;
+        }
+        specialization.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validateEmail = () => {
+        const value = email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            email.classList.add('is-invalid');
+            emailError.textContent = 'Please enter a valid email address';
+            return false;
+        }
+        email.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validatePhone = () => {
+        const value = phone.value.trim();
+        if (!/^\d{10}$/.test(value)) {
+            phone.classList.add('is-invalid');
+            phoneError.textContent = 'Phone number must be 10 digits';
+            return false;
+        }
+        phone.classList.remove('is-invalid');
+        return true;
+    };
+
+    // Add event listeners for real-time validation
+    doctorName.addEventListener('input', validateDoctorName);
+    specialization.addEventListener('input', validateSpecialization);
+    email.addEventListener('input', validateEmail);
+    phone.addEventListener('input', validatePhone);
+
+    // Add event listener for form submission
+    createBtn.addEventListener('click', function(e) {
+        // Run all validations
+        const isNameValid = validateDoctorName();
+        const isSpecializationValid = validateSpecialization();
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+
+        // If any validation fails, prevent form submission
+        if (!isNameValid || !isSpecializationValid || !isEmailValid || !isPhoneValid) {
+            e.preventDefault();
+            // Focus on first invalid field
+            if (!isNameValid) doctorName.focus();
+            else if (!isSpecializationValid) specialization.focus();
+            else if (!isEmailValid) email.focus();
+            else if (!isPhoneValid) phone.focus();
+        }
+    });
+});
+</script>
 
 <script>
-    document.getElementById('createDoctorBtn').addEventListener('click', async () => {
+    // Real-time validation for edit admin form
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get edit form elements
+        const editAdminName = document.getElementById('editAdminName');
+        const editAdminSpecialization = document.getElementById('editAdminSpecialization');
+        const editAdminEmail = document.getElementById('editAdminEmail');
+        const editAdminPhone = document.getElementById('editAdminPhone');
+        const editSaveBtn = document.querySelector('#editAdminModal .btn-primary');
+
+        // Create error message elements for edit form
+        const createEditErrorElement = (input) => {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'invalid-feedback';
+            input.parentNode.appendChild(errorDiv);
+            return errorDiv;
+        };
+
+        const editNameError = createEditErrorElement(editAdminName);
+        const editSpecializationError = createEditErrorElement(editAdminSpecialization);
+        const editEmailError = createEditErrorElement(editAdminEmail);
+        const editPhoneError = createEditErrorElement(editAdminPhone);
+
+        // Validation functions (same as create form)
+        const validateEditName = () => {
+            const value = editAdminName.value.trim();
+            if (value.length < 3 || value.length > 50 || !/^[A-Za-z ]+$/.test(value)) {
+                editAdminName.classList.add('is-invalid');
+                editNameError.textContent = 'Admin name must be 3-50 alphabetic characters';
+                return false;
+            }
+            editAdminName.classList.remove('is-invalid');
+            return true;
+        };
+
+        const validateEditSpecialization = () => {
+            const value = editAdminSpecialization.value.trim();
+            if (value.length < 3 || value.length > 100 || !/^[A-Za-z ,-]+$/.test(value)) {
+                editAdminSpecialization.classList.add('is-invalid');
+                editSpecializationError.textContent = 'Specialization must be 3-100 valid characters (letters, spaces, commas, hyphens)';
+                return false;
+            }
+            editAdminSpecialization.classList.remove('is-invalid');
+            return true;
+        };
+
+        const validateEditEmail = () => {
+            const value = editAdminEmail.value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                editAdminEmail.classList.add('is-invalid');
+                editEmailError.textContent = 'Please enter a valid email address';
+                return false;
+            }
+            editAdminEmail.classList.remove('is-invalid');
+            return true;
+        };
+
+        const validateEditPhone = () => {
+            const value = editAdminPhone.value.trim();
+            if (!/^\d{10}$/.test(value)) {
+                editAdminPhone.classList.add('is-invalid');
+                editPhoneError.textContent = 'Phone number must be 10 digits';
+                return false;
+            }
+            editAdminPhone.classList.remove('is-invalid');
+            return true;
+        };
+
+        // Add event listeners for real-time validation
+        editAdminName.addEventListener('input', validateEditName);
+        editAdminSpecialization.addEventListener('input', validateEditSpecialization);
+        editAdminEmail.addEventListener('input', validateEditEmail);
+        editAdminPhone.addEventListener('input', validateEditPhone);
+
+        // Add event listener for form submission
+        editSaveBtn.addEventListener('click', function(e) {
+            // Run all validations
+            const isNameValid = validateEditName();
+            const isSpecializationValid = validateEditSpecialization();
+            const isEmailValid = validateEditEmail();
+            const isPhoneValid = validateEditPhone();
+
+            // If any validation fails, prevent form submission
+            if (!isNameValid || !isSpecializationValid || !isEmailValid || !isPhoneValid) {
+                e.preventDefault();
+                // Focus on first invalid field
+                if (!isNameValid) editAdminName.focus();
+                else if (!isSpecializationValid) editAdminSpecialization.focus();
+                else if (!isEmailValid) editAdminEmail.focus();
+                else if (!isPhoneValid) editAdminPhone.focus();
+            }
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('createAdminBtn').addEventListener('click', async () => {
   // Get form data
-  const doctorData = {
-    doctorName: document.getElementById('doctorName').value,
-    email: document.getElementById('doctorEmail').value,
-    phoneNumber: document.getElementById('doctorPhone').value,
-    password: document.getElementById('doctorPassword').value
+  const adminData = {
+    doctorName: document.getElementById('adminName').value,
+    email: document.getElementById('adminEmail').value,
+    phoneNumber: document.getElementById('adminPhone').value,
+    specialization: document.getElementById('adminSpecialization').value
   };
 
   // UI feedback while processing
-  const submitBtn = document.getElementById('createDoctorBtn');
+  const submitBtn = document.getElementById('createAdminBtn');
   const originalBtnText = submitBtn.innerHTML;
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Processing...';
@@ -475,23 +664,22 @@
   try {
     // Add timeout to prevent hanging
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch('http://localhost:8080/api/doctors', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa('doctor:doctor')
+        'Authorization': 'Basic ' + btoa('admin:admin')
       },
-      body: JSON.stringify(doctorData),
+      body: JSON.stringify(adminData),
       credentials: 'include',
       signal: controller.signal,
-      mode: 'cors' // Explicit CORS mode
+      mode: 'cors'
     });
 
     clearTimeout(timeoutId);
 
-    // Handle non-2xx responses
     if (!response.ok) {
       let errorDetails;
       try {
@@ -502,33 +690,31 @@
       throw new Error(errorDetails.message || `Server responded with ${response.status}`);
     }
 
-    // Success case
     const result = await response.json();
 
     // Show success message
     const successAlert = document.createElement('div');
     successAlert.className = 'alert alert-success alert-dismissible fade show';
     successAlert.innerHTML = `
-      Doctor created successfully! ID: ${result.doctorId || ''}
+      Doctor created successfully!
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     document.body.appendChild(successAlert);
 
     // Close modal and reset form
-    const modal = bootstrap.Modal.getInstance(document.getElementById('newDoctorModal'));
+    const modal = bootstrap.Modal.getInstance(document.getElementById('newAdminModal'));
     if (modal) modal.hide();
-    document.querySelector('#newDoctorModal form').reset();
+    document.querySelector('#newAdminModal form').reset();
+
+    // Refresh the admin table (NEW CODE)
+    await loadAdmins(); // Call the same function that loads the table initially
 
   } catch (error) {
     console.error('Full error:', error);
-
-    // Special handling for timeout
     if (error.name === 'AbortError') {
       alert('Request timed out. The server is taking too long to respond.');
       return;
     }
-
-    // Special handling for CORS errors
     if (error.message.includes('Failed to fetch')) {
       alert(`Connection error. Please check:
 1. The backend server is running
@@ -537,12 +723,8 @@
 4. Try in Incognito mode`);
       return;
     }
-
-    // General error case
     alert(`Error: ${error.message}`);
-
   } finally {
-    // Reset button state
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalBtnText;
   }
@@ -550,6 +732,191 @@
 </script>
 
 
+<script>
+    // Make loadAdmins globally available
+window.loadAdmins = async function() {
+    try {
+        // Show loading state
+        const tbody = document.querySelector('.custom-admin-table tbody');
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div></tr>';
+
+        const response = await fetch('http://localhost:8080/api/doctors', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            },
+            credentials: 'include',
+            mode: 'cors'
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with ${response.status}`);
+        }
+
+        const admins = await response.json();
+        renderAdminTable(admins);
+    } catch (error) {
+        console.error('Error fetching doctors:', error);
+        const tbody = document.querySelector('.custom-admin-table tbody');
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center text-danger">Failed to load data: ${error.message}</td></tr>`;
+    }
+}
+
+function renderAdminTable(admins) {
+    const tbody = document.querySelector('.custom-admin-table tbody');
+    tbody.innerHTML = ''; // Clear existing rows
+
+    if (admins.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center">No admins found</td></tr>';
+        return;
+    }
+
+    admins.forEach(admin => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${admin.doctorName}</td>
+            <td>${admin.specialization}</td>
+            <td>${admin.phoneNumber}</td>
+            <td>${admin.email}</td>
+            <td class="text-end">
+                <div class="action-buttons">
+                    <div class="group-child2" onclick="editAdmin(${admin.doctorId})">
+                        <img class="pencil-fill-icon" alt="Edit" src="/static/images/pencil-fill.svg">
+                    </div>
+                    <div class="group-child1" onclick="deleteAdmin(${admin.doctorId})">
+                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer 2.svg">
+                    </div>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', loadAdmins);
+
+// Placeholder functions for edit/delete
+window.editAdmin = function(doctorId) {
+    console.log('Edit doctors with ID:', doctorId);
+    // Implement edit functionality
+}
+
+window.deleteAdmin = function(doctorId) {
+    if (confirm('Are you sure you want to delete this doctor?')) {
+        fetch(`http://localhost:8080/api/doctors/${doctorId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Delete failed');
+            return loadAdmins(); // Refresh table after delete
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            alert('Failed to delete doctor');
+        });
+    }
+}
+</script>
+
+<script>
+    // Global variable to store current admin being edited
+let currentEditAdminId = null;
+
+// Update your editAdmin function
+window.editAdmin = function(doctorId) {
+    currentEditAdminId = doctorId;
+
+    // Fetch admin details
+    fetch(`http://localhost:8080/api/doctors/${doctorId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Basic ' + btoa('admin:admin')
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch doctor details');
+        return response.json();
+    })
+    .then(admin => {
+        // Populate modal fields
+        document.getElementById('editAdminName').value = admin.doctorName;
+        document.getElementById('editAdminEmail').value = admin.email;
+        document.getElementById('editAdminPhone').value = admin.phoneNumber;
+        document.getElementById('editAdminSpecialization').value = admin.specialization;
+
+
+        // Show modal
+        const editModal = new bootstrap.Modal(document.getElementById('editAdminModal'));
+        editModal.show();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to load doctor details: ' + error.message);
+    });
+}
+
+// Add save functionality
+document.querySelector('#editAdminModal .btn-primary').addEventListener('click', async function() {
+    const saveBtn = this;
+    const originalBtnText = saveBtn.innerHTML;
+
+    try {
+        // UI feedback
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+
+        // Get updated data
+        const updatedAdmin = {
+            doctorName: document.getElementById('editAdminName').value,
+            email: document.getElementById('editAdminEmail').value,
+            specialization: document.getElementById('editAdminSpecialization').value,
+            phoneNumber: document.getElementById('editAdminPhone').value,
+
+             // Only send if changed
+        };
+
+        // Send update request
+        const response = await fetch(`http://localhost:8080/api/doctors/${currentEditAdminId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            },
+            body: JSON.stringify(updatedAdmin)
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Update failed');
+        }
+
+        // Success - refresh table and close modal
+        await loadAdmins();
+        bootstrap.Modal.getInstance(document.getElementById('editAdminModal')).hide();
+
+        // Show success message
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show';
+        successAlert.innerHTML = `
+            doctor updated successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(successAlert);
+
+    } catch (error) {
+        console.error('Update error:', error);
+        alert('Failed to update doctor: ' + error.message);
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalBtnText;
+    }
+});
+</script>
 
 </body>
 </html>
