@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Otomanopee+One:wght@400&display=swap">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
         #content-container {
             position: relative;
@@ -254,7 +256,7 @@
                                         <img class="pencil-fill-icon" alt="Edit" src="/static/images/pencil-fill.svg">
                                     </div>
                                     <div class="group-child1">
-                                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer 2.svg">
+                                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer%202.svg">
                                     </div>
                                 </div>
                             </td>
@@ -271,7 +273,7 @@
                                         <img class="pencil-fill-icon" alt="Edit" src="/static/images/pencil-fill.svg">
                                     </div>
                                     <div class="group-child1">
-                                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer 2.svg">
+                                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer%202.svg">
                                     </div>
                                 </div>
                             </td>
@@ -288,7 +290,7 @@
                                         <img class="pencil-fill-icon" alt="Edit" src="/static/images/pencil-fill.svg">
                                     </div>
                                     <div class="group-child1">
-                                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer 2.svg">
+                                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer%202.svg">
                                     </div>
                                 </div>
                             </td>
@@ -323,9 +325,14 @@
                         <input type="tel" class="form-control" id="adminPhone" placeholder=" " required>
                         <label for="adminPhone">Phone Number</label>
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-3 position-relative">
                         <input type="password" class="form-control" id="adminPassword" placeholder=" " required>
                         <label for="adminPassword">Password</label>
+                        <button type="button" class="btn btn-link position-absolute end-0 top-50 translate-middle-y me-2"
+                                id="togglePassword"
+                                style="z-index: 10; padding: 0.375rem;">
+                            <i class="bi bi-eye-slash"></i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -383,6 +390,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <!-- Bootstrap JS -->
@@ -449,6 +458,216 @@
     }, { passive: false });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Password visibility toggle
+    const togglePassword = document.getElementById('togglePassword');
+    const adminPassword = document.getElementById('adminPassword');
+    const icon = togglePassword.querySelector('i');
+
+    togglePassword.addEventListener('click', function() {
+        const type = adminPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        adminPassword.setAttribute('type', type);
+
+        // Toggle between eye and eye-slash icons
+        if (type === 'password') {
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    });
+
+    // Get other form elements
+    const adminName = document.getElementById('adminName');
+    const adminEmail = document.getElementById('adminEmail');
+    const adminPhone = document.getElementById('adminPhone');
+
+    // Create error message elements
+    const createErrorElement = (input) => {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback';
+        input.parentNode.appendChild(errorDiv);
+        return errorDiv;
+    };
+
+    const nameError = createErrorElement(adminName);
+    const emailError = createErrorElement(adminEmail);
+    const phoneError = createErrorElement(adminPhone);
+    const passwordError = createErrorElement(adminPassword);
+
+    // Validation functions
+    const validateName = () => {
+        const value = adminName.value.trim();
+        if (value.length < 3 || value.length > 50 || !/^[A-Za-z ]+$/.test(value)) {
+            adminName.classList.add('is-invalid');
+            nameError.textContent = 'Name must be 3-50 alphabetic characters';
+            return false;
+        }
+        adminName.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validateEmail = () => {
+        const value = adminEmail.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            adminEmail.classList.add('is-invalid');
+            emailError.textContent = 'Please enter a valid email address';
+            return false;
+        }
+        adminEmail.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validatePhone = () => {
+        const value = adminPhone.value.trim();
+        if (!/^\d{10}$/.test(value)) {
+            adminPhone.classList.add('is-invalid');
+            phoneError.textContent = 'Phone number must be 10 digits';
+            return false;
+        }
+        adminPhone.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validatePassword = () => {
+        const value = adminPassword.value;
+        if (!/(?=.*[A-Za-z])(?=.*\d).{8,}/.test(value)) {
+            adminPassword.classList.add('is-invalid');
+            passwordError.textContent = 'Password must be 8+ chars with at least one letter and one number';
+            return false;
+        }
+        adminPassword.classList.remove('is-invalid');
+        return true;
+    };
+
+    // Add event listeners for real-time validation
+    adminName.addEventListener('input', validateName);
+    adminEmail.addEventListener('input', validateEmail);
+    adminPhone.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').substring(0, 10);
+        validatePhone();
+    });
+    adminPassword.addEventListener('input', validatePassword);
+
+    // Add event listener for form submission
+    document.getElementById('createAdminBtn').addEventListener('click', function(e) {
+        // Run all validations
+        const isNameValid = validateName();
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+        const isPasswordValid = validatePassword();
+
+        // If any validation fails, prevent form submission
+        if (!isNameValid || !isEmailValid || !isPhoneValid || !isPasswordValid) {
+            e.preventDefault();
+            // Focus on first invalid field
+            if (!isNameValid) adminName.focus();
+            else if (!isEmailValid) adminEmail.focus();
+            else if (!isPhoneValid) adminPhone.focus();
+            else if (!isPasswordValid) adminPassword.focus();
+        }
+    });
+});
+</script>
+
+
+<script>
+    // Real-time validation for edit admin form
+document.addEventListener('DOMContentLoaded', function() {
+    // Get edit form elements
+    const editAdminName = document.getElementById('editAdminName');
+    const editAdminEmail = document.getElementById('editAdminEmail');
+    const editAdminPhone = document.getElementById('editAdminPhone');
+    const editAdminPassword = document.getElementById('editAdminPassword');
+    const editAdminBtn = document.querySelector('#editAdminModal .btn-primary');
+
+    // Create error message elements for edit form
+    const createEditErrorElement = (input) => {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback';
+        input.parentNode.appendChild(errorDiv);
+        return errorDiv;
+    };
+
+    const editNameError = createEditErrorElement(editAdminName);
+    const editEmailError = createEditErrorElement(editAdminEmail);
+    const editPhoneError = createEditErrorElement(editAdminPhone);
+    const editPasswordError = createEditErrorElement(editAdminPassword);
+
+    // Validation functions (same as create form)
+    const validateEditName = () => {
+        const value = editAdminName.value.trim();
+        if (value.length < 3 || value.length > 50 || !/^[A-Za-z ]+$/.test(value)) {
+            editAdminName.classList.add('is-invalid');
+            editNameError.textContent = 'Name must be 3-50 alphabetic characters';
+            return false;
+        }
+        editAdminName.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validateEditEmail = () => {
+        const value = editAdminEmail.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            editAdminEmail.classList.add('is-invalid');
+            editEmailError.textContent = 'Please enter a valid email address';
+            return false;
+        }
+        editAdminEmail.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validateEditPhone = () => {
+        const value = editAdminPhone.value.trim();
+        if (!/^\d{10}$/.test(value)) {
+            editAdminPhone.classList.add('is-invalid');
+            editPhoneError.textContent = 'Phone number must be 10 digits';
+            return false;
+        }
+        editAdminPhone.classList.remove('is-invalid');
+        return true;
+    };
+
+    const validateEditPassword = () => {
+        const value = editAdminPassword.value;
+        if (value && !/(?=.*[A-Za-z])(?=.*\d).{8,}/.test(value)) {
+            editAdminPassword.classList.add('is-invalid');
+            editPasswordError.textContent = 'Password must be 8+ chars with at least one letter and one number (leave empty to keep current)';
+            return false;
+        }
+        editAdminPassword.classList.remove('is-invalid');
+        return true;
+    };
+
+    // Add event listeners for real-time validation
+    editAdminName.addEventListener('input', validateEditName);
+    editAdminEmail.addEventListener('input', validateEditEmail);
+    editAdminPhone.addEventListener('input', validateEditPhone);
+    editAdminPassword.addEventListener('input', validateEditPassword);
+
+    // Add event listener for form submission
+    editAdminBtn.addEventListener('click', function(e) {
+        // Run all validations
+        const isNameValid = validateEditName();
+        const isEmailValid = validateEditEmail();
+        const isPhoneValid = validateEditPhone();
+        const isPasswordValid = validateEditPassword();
+
+        // If any validation fails, prevent form submission
+        if (!isNameValid || !isEmailValid || !isPhoneValid || !isPasswordValid) {
+            e.preventDefault();
+            // Focus on first invalid field
+            if (!isNameValid) editAdminName.focus();
+            else if (!isEmailValid) editAdminEmail.focus();
+            else if (!isPhoneValid) editAdminPhone.focus();
+            else if (!isPasswordValid) editAdminPassword.focus();
+        }
+    });
+});
+</script>
+
 
 <script>
     document.getElementById('createAdminBtn').addEventListener('click', async () => {
@@ -469,7 +688,7 @@
   try {
     // Add timeout to prevent hanging
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch('http://localhost:8080/api/admins', {
       method: 'POST',
@@ -480,12 +699,11 @@
       body: JSON.stringify(adminData),
       credentials: 'include',
       signal: controller.signal,
-      mode: 'cors' // Explicit CORS mode
+      mode: 'cors'
     });
 
     clearTimeout(timeoutId);
 
-    // Handle non-2xx responses
     if (!response.ok) {
       let errorDetails;
       try {
@@ -496,14 +714,13 @@
       throw new Error(errorDetails.message || `Server responded with ${response.status}`);
     }
 
-    // Success case
     const result = await response.json();
 
     // Show success message
     const successAlert = document.createElement('div');
     successAlert.className = 'alert alert-success alert-dismissible fade show';
     successAlert.innerHTML = `
-      Admin created successfully! ID: ${result.adminId || ''}
+      Admin created successfully!
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     document.body.appendChild(successAlert);
@@ -513,16 +730,15 @@
     if (modal) modal.hide();
     document.querySelector('#newAdminModal form').reset();
 
+    // Refresh the admin table (NEW CODE)
+    await loadAdmins(); // Call the same function that loads the table initially
+
   } catch (error) {
     console.error('Full error:', error);
-
-    // Special handling for timeout
     if (error.name === 'AbortError') {
       alert('Request timed out. The server is taking too long to respond.');
       return;
     }
-
-    // Special handling for CORS errors
     if (error.message.includes('Failed to fetch')) {
       alert(`Connection error. Please check:
 1. The backend server is running
@@ -531,12 +747,8 @@
 4. Try in Incognito mode`);
       return;
     }
-
-    // General error case
     alert(`Error: ${error.message}`);
-
   } finally {
-    // Reset button state
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalBtnText;
   }
@@ -544,6 +756,187 @@
 </script>
 
 
+<script>
+    // Make loadAdmins globally available
+window.loadAdmins = async function() {
+    try {
+        // Show loading state
+        const tbody = document.querySelector('.custom-admin-table tbody');
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div></tr>';
+
+        const response = await fetch('http://localhost:8080/api/admins', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            },
+            credentials: 'include',
+            mode: 'cors'
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with ${response.status}`);
+        }
+
+        const admins = await response.json();
+        renderAdminTable(admins);
+    } catch (error) {
+        console.error('Error fetching admins:', error);
+        const tbody = document.querySelector('.custom-admin-table tbody');
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center text-danger">Failed to load data: ${error.message}</td></tr>`;
+    }
+}
+
+function renderAdminTable(admins) {
+    const tbody = document.querySelector('.custom-admin-table tbody');
+    tbody.innerHTML = ''; // Clear existing rows
+
+    if (admins.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center">No admins found</td></tr>';
+        return;
+    }
+
+    admins.forEach(admin => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${admin.adminName}</td>
+            <td>${admin.phoneNumber}</td>
+            <td>${admin.email}</td>
+            <td class="text-end">
+                <div class="action-buttons">
+                    <div class="group-child2" onclick="editAdmin(${admin.adminId})">
+                        <img class="pencil-fill-icon" alt="Edit" src="/static/images/pencil-fill.svg">
+                    </div>
+                    <div class="group-child1" onclick="deleteAdmin(${admin.adminId})">
+                        <img class="layer-2-icon" alt="Delete" src="/static/images/Layer 2.svg">
+                    </div>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', loadAdmins);
+
+// Placeholder functions for edit/delete
+window.editAdmin = function(adminId) {
+    console.log('Edit admin with ID:', adminId);
+    // Implement edit functionality
+}
+
+window.deleteAdmin = function(adminId) {
+    if (confirm('Are you sure you want to delete this admin?')) {
+        fetch(`http://localhost:8080/api/admins/${adminId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Delete failed');
+            return loadAdmins(); // Refresh table after delete
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            alert('Failed to delete admin');
+        });
+    }
+}
+</script>
+
+<script>
+    // Global variable to store current admin being edited
+let currentEditAdminId = null;
+
+// Update your editAdmin function
+window.editAdmin = function(adminId) {
+    currentEditAdminId = adminId;
+
+    // Fetch admin details
+    fetch(`http://localhost:8080/api/admins/${adminId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Basic ' + btoa('admin:admin')
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch admin details');
+        return response.json();
+    })
+    .then(admin => {
+        // Populate modal fields
+        document.getElementById('editAdminName').value = admin.adminName;
+        document.getElementById('editAdminEmail').value = admin.email;
+        document.getElementById('editAdminPhone').value = admin.phoneNumber;
+        document.getElementById('editAdminPassword').value = ''; // Clear password field
+
+        // Show modal
+        const editModal = new bootstrap.Modal(document.getElementById('editAdminModal'));
+        editModal.show();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to load admin details: ' + error.message);
+    });
+}
+
+// Add save functionality
+document.querySelector('#editAdminModal .btn-primary').addEventListener('click', async function() {
+    const saveBtn = this;
+    const originalBtnText = saveBtn.innerHTML;
+
+    try {
+        // UI feedback
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+
+        // Get updated data
+        const updatedAdmin = {
+            adminName: document.getElementById('editAdminName').value,
+            email: document.getElementById('editAdminEmail').value,
+            phoneNumber: document.getElementById('editAdminPhone').value,
+            password: document.getElementById('editAdminPassword').value || undefined // Only send if changed
+        };
+
+        // Send update request
+        const response = await fetch(`http://localhost:8080/api/admins/${currentEditAdminId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            },
+            body: JSON.stringify(updatedAdmin)
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Update failed');
+        }
+
+        // Success - refresh table and close modal
+        await loadAdmins();
+        bootstrap.Modal.getInstance(document.getElementById('editAdminModal')).hide();
+
+        // Show success message
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show';
+        successAlert.innerHTML = `
+            Admin updated successfully!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(successAlert);
+
+    } catch (error) {
+        console.error('Update error:', error);
+        alert('Failed to update admin: ' + error.message);
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalBtnText;
+    }
+});
+</script>
 
 </body>
 </html>

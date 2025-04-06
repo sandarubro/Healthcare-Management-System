@@ -63,7 +63,7 @@
         .login-panel {
             position: absolute;
             top: 161px;
-            left: 601px;
+            left: 950px;
             width: 718px;
             height: 546px;
             background-color: var(--color-gainsboro);
@@ -144,7 +144,7 @@
         /* Login button */
         .btn-login {
             position: absolute;
-            top: 365px;
+            top: 375px;
             left: 445px;
             width: 217px;
             height: 62px;
@@ -202,18 +202,85 @@
             width: 28px;
             height: 37px;
         }
+
+        /* Error message styling */
+        .error-message {
+            position: absolute;
+            top: 330px;
+            left: 0;
+            width: 100%;
+            color: #dc3545;
+            text-align: center;
+            font-size: 14px;
+            padding: 8px;
+            background-color: #f8d7da;
+            border-radius: var(--br-8xs);
+            display: none;
+        }
+
+        .is-invalid {
+            border: 1px solid #dc3545 !important;
+        }
+
+        /* Blue left panel */
+.blue-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 825px;
+    height: 101%;
+    background-color: var(--color-darkslateblue);
+}
+        /* SVG container styles */
+/* SVG container styles */
+.svg-container {
+    position: absolute;
+    width: 337px;
+    height: 337px;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* Image styles */
+.fi-sr-plus-small-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the image scales properly */
+}
+
+        .text-content p {
+    font-size: 20px;
+    font-family: var(--font-open-sans);
+     position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: white; /* Text color for the blue background */
+}
+
     </style>
 </head>
 <body>
 <!-- Scaling container maintains 1920×868 dimensions -->
 <div class="scaling-container">
-    <div class="login">
-        <div class="logo">
-            <div class="m">M</div>
-            <div class="s">S</div>
-            <div class="plus">+</div>
-        </div>
+    <div class="blue-panel">
 
+            <div class="svg-container">
+                <img class="fi-sr-plus-small-icon" alt="Health Icon" src="/static/images/health.svg">
+            </div>
+            <div class="text-content">
+                <p>Comprehensive Medical Resources Management System<br>
+                    For Healthcare Professionals</p>
+            </div>
+
+    </div>
         <div class="login-panel">
             <div class="panel-content">
                 <h1 class="login-title">Login</h1>
@@ -231,8 +298,11 @@
                     <label for="password" class="form-label">Password</label>
                 </div>
 
+                <!-- Error Message -->
+                <div id="error-message" class="error-message"></div>
+
                 <!-- Login Button -->
-                <button class="btn-login">Log In</button>
+                <button class="btn-login" id="login-btn">Log In</button>
             </div>
         </div>
     </div>
@@ -242,7 +312,7 @@
     // Calculate and apply scaling factor
     function updateScale() {
         const container = document.querySelector('.scaling-container');
-        const scale = window.innerWidth / 1920;
+        const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 868);
         container.style.setProperty('--scale-factor', scale);
 
         // Adjust body height to account for scaling
@@ -263,5 +333,140 @@
     }, { passive: false });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginBtn = document.getElementById('login-btn');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorElement = document.getElementById('error-message');
+
+        // Enhanced login function with proper error handling
+        async function handleLogin() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // Clear previous errors
+            clearErrors();
+
+            // Validate inputs
+            if (!email || !password) {
+                showError('Please enter both email and password');
+                return;
+            }
+
+            // Validate email format
+            if (!validateEmail(email)) {
+                showError('Please enter a valid email address');
+                emailInput.classList.add('is-invalid');
+                return;
+            }
+
+            try {
+                // Set loading state
+                setLoadingState(true);
+
+                // Attempt login
+                const response = await fetch('http://localhost:8080/api/admins/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password }),
+                    signal: AbortSignal.timeout(8000) // 8 second timeout
+                });
+
+                // Handle different response types
+                if (!response.ok) {
+                    const errorData = await parseErrorResponse(response);
+                    throw new Error(errorData.message || 'Login failed');
+                }
+
+                const adminData = await response.json();
+
+                // Store admin data and redirect
+                sessionStorage.setItem('admin', JSON.stringify(adminData));
+                window.location.href = 'admin_info.html';
+
+            } catch (error) {
+                handleLoginError(error);
+            } finally {
+                setLoadingState(false);
+            }
+        }
+
+        // Helper functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        async function parseErrorResponse(response) {
+            try {
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return await response.json();
+                }
+                return { message: await response.text() };
+            } catch {
+                return { message: 'An unknown error occurred' };
+            }
+        }
+
+        function setLoadingState(isLoading) {
+            loginBtn.disabled = isLoading;
+            loginBtn.innerHTML = isLoading
+                ? '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...'
+                : 'Log In';
+        }
+
+        function showError(message) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function clearErrors() {
+            errorElement.style.display = 'none';
+            emailInput.classList.remove('is-invalid');
+            passwordInput.classList.remove('is-invalid');
+        }
+
+        function handleLoginError(error) {
+            console.error('Login error:', error);
+
+            let userMessage = 'Login failed. Please try again.';
+
+            if (error.name === 'AbortError') {
+                userMessage = 'Request timed out. Please check your connection.';
+            } else if (error.message.includes('Failed to fetch')) {
+                userMessage = 'Unable to connect to server. Please check your network.';
+            } else if (error.message) {
+                userMessage = error.message;
+            }
+
+            showError(userMessage);
+        }
+
+        // Event listeners
+        loginBtn.addEventListener('click', handleLogin);
+
+        // Handle Enter key in both fields
+        [emailInput, passwordInput].forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleLogin();
+            });
+
+            // Clear validation errors when typing
+            input.addEventListener('input', () => {
+                if (input.classList.contains('is-invalid')) {
+                    input.classList.remove('is-invalid');
+                }
+            });
+        });
+    });
+</script>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
