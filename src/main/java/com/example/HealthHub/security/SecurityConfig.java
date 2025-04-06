@@ -36,7 +36,10 @@ public class SecurityConfig {
                                 "/register/**",
                                 "/static/**",
                                 "/error",
+                                "/api/admins/login",
+                                "/api/admins",
                                 "/error/**"
+
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -54,7 +57,9 @@ public class SecurityConfig {
                 "http://localhost:3000",    // React/Vite default
                 "http://localhost:63342",   // WebStorm/IntelliJ default
                 "http://127.0.0.1:8080",
-                "http://[::1]:8080"
+                "http://127.0.0.1:8081",
+                "http://[::1]:8080",
+                "null"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));

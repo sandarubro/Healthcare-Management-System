@@ -183,10 +183,10 @@
             height: 16px;
         }
 
-        .layer-2-icon{
-            width: 25px;
-            height: 25px;
-        }
+         .layer-2-icon{
+               width: 25px;
+               height: 25px;
+         }
 
         .rectangle-group {
             position: absolute;
@@ -549,7 +549,7 @@
         totalAmount.addEventListener('input', function() {
             // Allow numbers and exactly one decimal point
             this.value = this.value.replace(/[^0-9.]/g, '')
-                .replace(/(\..*)\./g, '$1');
+                                  .replace(/(\..*)\./g, '$1');
             validateAmount();
         });
 
@@ -653,7 +653,7 @@
         editTotalAmount.addEventListener('input', function() {
             // Allow numbers and exactly one decimal point
             this.value = this.value.replace(/[^0-9.]/g, '')
-                .replace(/(\..*)\./g, '$1');
+                                  .replace(/(\..*)\./g, '$1');
             validateAmount();
         });
 
@@ -668,135 +668,135 @@
 
 <script>
     document.getElementById('createAdminBtn').addEventListener('click', async () => {
-        // Get form data
-        const adminData = {
-            patientName: document.getElementById('adminPatient').value,
-            doctorName: document.getElementById('adminName').value,
-            date: document.getElementById('adminDate').value,
-            totalAmount: document.getElementById('adminTotalAmount').value
+  // Get form data
+  const adminData = {
+    patientName: document.getElementById('adminPatient').value,
+    doctorName: document.getElementById('adminName').value,
+    date: document.getElementById('adminDate').value,
+    totalAmount: document.getElementById('adminTotalAmount').value
 
-        };
+  };
 
-        // UI feedback while processing
-        const submitBtn = document.getElementById('createAdminBtn');
-        const originalBtnText = submitBtn.innerHTML;
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Processing...';
+  // UI feedback while processing
+  const submitBtn = document.getElementById('createAdminBtn');
+  const originalBtnText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Processing...';
 
-        try {
-            // Add timeout to prevent hanging
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 10000);
+  try {
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-            const response = await fetch('http://localhost:8080/api/payments', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa('admin:admin')
-                },
-                body: JSON.stringify(adminData),
-                credentials: 'include',
-                signal: controller.signal,
-                mode: 'cors'
-            });
+    const response = await fetch('http://localhost:8080/api/payments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa('admin:admin')
+      },
+      body: JSON.stringify(adminData),
+      credentials: 'include',
+      signal: controller.signal,
+      mode: 'cors'
+    });
 
-            clearTimeout(timeoutId);
+    clearTimeout(timeoutId);
 
-            if (!response.ok) {
-                let errorDetails;
-                try {
-                    errorDetails = await response.json();
-                } catch {
-                    errorDetails = { message: await response.text() };
-                }
-                throw new Error(errorDetails.message || `Server responded with ${response.status}`);
-            }
+    if (!response.ok) {
+      let errorDetails;
+      try {
+        errorDetails = await response.json();
+      } catch {
+        errorDetails = { message: await response.text() };
+      }
+      throw new Error(errorDetails.message || `Server responded with ${response.status}`);
+    }
 
-            const result = await response.json();
+    const result = await response.json();
 
-            // Show success message
-            const successAlert = document.createElement('div');
-            successAlert.className = 'alert alert-success alert-dismissible fade show';
-            successAlert.innerHTML = `
+    // Show success message
+    const successAlert = document.createElement('div');
+    successAlert.className = 'alert alert-success alert-dismissible fade show';
+    successAlert.innerHTML = `
       Payment created successfully!
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-            document.body.appendChild(successAlert);
+    document.body.appendChild(successAlert);
 
-            // Close modal and reset form
-            const modal = bootstrap.Modal.getInstance(document.getElementById('newAdminModal'));
-            if (modal) modal.hide();
-            document.querySelector('#newAdminModal form').reset();
+    // Close modal and reset form
+    const modal = bootstrap.Modal.getInstance(document.getElementById('newAdminModal'));
+    if (modal) modal.hide();
+    document.querySelector('#newAdminModal form').reset();
 
-            // Refresh the admin table (NEW CODE)
-            await loadAdmins(); // Call the same function that loads the table initially
+    // Refresh the admin table (NEW CODE)
+    await loadAdmins(); // Call the same function that loads the table initially
 
-        } catch (error) {
-            console.error('Full error:', error);
-            if (error.name === 'AbortError') {
-                alert('Request timed out. The server is taking too long to respond.');
-                return;
-            }
-            if (error.message.includes('Failed to fetch')) {
-                alert(`Connection error. Please check:
+  } catch (error) {
+    console.error('Full error:', error);
+    if (error.name === 'AbortError') {
+      alert('Request timed out. The server is taking too long to respond.');
+      return;
+    }
+    if (error.message.includes('Failed to fetch')) {
+      alert(`Connection error. Please check:
 1. The backend server is running
 2. No browser extensions are blocking requests
 3. You're using the correct URL (currently: http://localhost:8080)
 4. Try in Incognito mode`);
-                return;
-            }
-            alert(`Error: ${error.message}`);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-        }
-    });
+      return;
+    }
+    alert(`Error: ${error.message}`);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnText;
+  }
+});
 </script>
 
 
 <script>
     // Make loadAdmins globally available
-    window.loadAdmins = async function() {
-        try {
-            // Show loading state
-            const tbody = document.querySelector('.custom-admin-table tbody');
-            tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div></tr>';
+window.loadAdmins = async function() {
+    try {
+        // Show loading state
+        const tbody = document.querySelector('.custom-admin-table tbody');
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4"><div class="spinner-border text-primary" role="status"></div></tr>';
 
-            const response = await fetch('http://localhost:8080/api/payments', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa('admin:admin')
-                },
-                credentials: 'include',
-                mode: 'cors'
-            });
+        const response = await fetch('http://localhost:8080/api/payments', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            },
+            credentials: 'include',
+            mode: 'cors'
+        });
 
-            if (!response.ok) {
-                throw new Error(`Server responded with ${response.status}`);
-            }
-
-            const admins = await response.json();
-            renderAdminTable(admins);
-        } catch (error) {
-            console.error('Error fetching payments:', error);
-            const tbody = document.querySelector('.custom-admin-table tbody');
-            tbody.innerHTML = `<tr><td colspan="4" class="text-center text-danger">Failed to load data: ${error.message}</td></tr>`;
+        if (!response.ok) {
+            throw new Error(`Server responded with ${response.status}`);
         }
+
+        const admins = await response.json();
+        renderAdminTable(admins);
+    } catch (error) {
+        console.error('Error fetching payments:', error);
+        const tbody = document.querySelector('.custom-admin-table tbody');
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center text-danger">Failed to load data: ${error.message}</td></tr>`;
+    }
+}
+
+function renderAdminTable(admins) {
+    const tbody = document.querySelector('.custom-admin-table tbody');
+    tbody.innerHTML = ''; // Clear existing rows
+
+    if (admins.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="text-center">No payments found</td></tr>';
+        return;
     }
 
-    function renderAdminTable(admins) {
-        const tbody = document.querySelector('.custom-admin-table tbody');
-        tbody.innerHTML = ''; // Clear existing rows
-
-        if (admins.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" class="text-center">No payments found</td></tr>';
-            return;
-        }
-
-        admins.forEach(admin => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+    admins.forEach(admin => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
             <td>${admin.patientName}</td>
             <td>${admin.doctorName}</td>
             <td>${admin.date}</td>
@@ -812,134 +812,134 @@
                 </div>
             </td>
         `;
-            tbody.appendChild(row);
-        });
-    }
+        tbody.appendChild(row);
+    });
+}
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', loadAdmins);
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', loadAdmins);
 
-    // Placeholder functions for edit/delete
-    window.editAdmin = function(paymentId) {
-        console.log('Edit payments with ID:', paymentId);
-        // Implement edit functionality
-    }
+// Placeholder functions for edit/delete
+window.editAdmin = function(paymentId) {
+    console.log('Edit payments with ID:', paymentId);
+    // Implement edit functionality
+}
 
-    window.deleteAdmin = function(paymentId) {
-        if (confirm('Are you sure you want to delete this payment?')) {
-            fetch(`http://localhost:8080/api/payments/${paymentId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': 'Basic ' + btoa('admin:admin')
-                }
-            })
-                .then(response => {
-                    if (!response.ok) throw new Error('Delete failed');
-                    return loadAdmins(); // Refresh table after delete
-                })
-                .catch(error => {
-                    console.error('Delete error:', error);
-                    alert('Failed to delete payment');
-                });
-        }
-    }
-</script>
-
-<script>
-    // Global variable to store current admin being edited
-    let currentEditAdminId = null;
-
-    // Update your editAdmin function
-    window.editAdmin = function(paymentId) {
-        currentEditAdminId = paymentId;
-
-        // Fetch admin details
+window.deleteAdmin = function(paymentId) {
+    if (confirm('Are you sure you want to delete this payment?')) {
         fetch(`http://localhost:8080/api/payments/${paymentId}`, {
-            method: 'GET',
+            method: 'DELETE',
             headers: {
                 'Authorization': 'Basic ' + btoa('admin:admin')
             }
         })
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to fetch doctor details');
-                return response.json();
-            })
-            .then(admin => {
-                // Populate modal fields
-                document.getElementById('editAdminPatient').value = admin.patientName;
-                document.getElementById('editAdminName').value = admin.doctorName;
-                document.getElementById('editAdminDate').value = admin.date;
-                document.getElementById('editAdminTotalAmount').value = admin.totalAmount;
-
-
-
-                // Show modal
-                const editModal = new bootstrap.Modal(document.getElementById('editAdminModal'));
-                editModal.show();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to load payment details: ' + error.message);
-            });
+        .then(response => {
+            if (!response.ok) throw new Error('Delete failed');
+            return loadAdmins(); // Refresh table after delete
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            alert('Failed to delete payment');
+        });
     }
+}
+</script>
 
-    // Add save functionality
-    document.querySelector('#editAdminModal .btn-primary').addEventListener('click', async function() {
-        const saveBtn = this;
-        const originalBtnText = saveBtn.innerHTML;
+<script>
+    // Global variable to store current admin being edited
+let currentEditAdminId = null;
 
-        try {
-            // UI feedback
-            saveBtn.disabled = true;
-            saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+// Update your editAdmin function
+window.editAdmin = function(paymentId) {
+    currentEditAdminId = paymentId;
 
-            // Get updated data
-            const updatedAdmin = {
-                patientName: document.getElementById('editAdminPatient').value,
-                doctorName: document.getElementById('editAdminName').value,
-                date: document.getElementById('editAdminDate').value,
-                totalAmount: document.getElementById('editAdminTotalAmount').value,
+    // Fetch admin details
+    fetch(`http://localhost:8080/api/payments/${paymentId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Basic ' + btoa('admin:admin')
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch doctor details');
+        return response.json();
+    })
+    .then(admin => {
+        // Populate modal fields
+        document.getElementById('editAdminPatient').value = admin.patientName;
+        document.getElementById('editAdminName').value = admin.doctorName;
+        document.getElementById('editAdminDate').value = admin.date;
+        document.getElementById('editAdminTotalAmount').value = admin.totalAmount;
 
 
-                // Only send if changed
-            };
 
-            // Send update request
-            const response = await fetch(`http://localhost:8080/api/payments/${currentEditAdminId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa('admin:admin')
-                },
-                body: JSON.stringify(updatedAdmin)
-            });
+        // Show modal
+        const editModal = new bootstrap.Modal(document.getElementById('editAdminModal'));
+        editModal.show();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to load payment details: ' + error.message);
+    });
+}
 
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.message || 'Update failed');
-            }
+// Add save functionality
+document.querySelector('#editAdminModal .btn-primary').addEventListener('click', async function() {
+    const saveBtn = this;
+    const originalBtnText = saveBtn.innerHTML;
 
-            // Success - refresh table and close modal
-            await loadAdmins();
-            bootstrap.Modal.getInstance(document.getElementById('editAdminModal')).hide();
+    try {
+        // UI feedback
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
 
-            // Show success message
-            const successAlert = document.createElement('div');
-            successAlert.className = 'alert alert-success alert-dismissible fade show';
-            successAlert.innerHTML = `
+        // Get updated data
+        const updatedAdmin = {
+            patientName: document.getElementById('editAdminPatient').value,
+            doctorName: document.getElementById('editAdminName').value,
+            date: document.getElementById('editAdminDate').value,
+            totalAmount: document.getElementById('editAdminTotalAmount').value,
+
+
+             // Only send if changed
+        };
+
+        // Send update request
+        const response = await fetch(`http://localhost:8080/api/payments/${currentEditAdminId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa('admin:admin')
+            },
+            body: JSON.stringify(updatedAdmin)
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Update failed');
+        }
+
+        // Success - refresh table and close modal
+        await loadAdmins();
+        bootstrap.Modal.getInstance(document.getElementById('editAdminModal')).hide();
+
+        // Show success message
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show';
+        successAlert.innerHTML = `
             payment updated successfully!
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
-            document.body.appendChild(successAlert);
+        document.body.appendChild(successAlert);
 
-        } catch (error) {
-            console.error('Update error:', error);
-            alert('Failed to update doctor: ' + error.message);
-        } finally {
-            saveBtn.disabled = false;
-            saveBtn.innerHTML = originalBtnText;
-        }
-    });
+    } catch (error) {
+        console.error('Update error:', error);
+        alert('Failed to update doctor: ' + error.message);
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = originalBtnText;
+    }
+});
 </script>
 
 </body>

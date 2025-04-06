@@ -181,13 +181,13 @@
         }
 
         .logo1-1-icon {
-  	width: 100%;
-  	position: relative;
-  	max-width: 100%;
-  	overflow: hidden;
-  	height: 78px;
-  	top: 10px;
-  	right: 80px;
+  	width: 170px;  /* Change this to your desired width */
+    height: 170px;  /* Change this to your desired height */
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    top: -10px;
+    right: 0px;
 }
 
 
@@ -200,7 +200,7 @@
     <div class="dashboard">
         <div class="sidebar">
             <!-- Logo Area -->
-            <img class="logo1-1-icon" alt="" src="/static/images/logo1.svg">
+            <img class="logo1-1-icon" alt="" src="/static/images/health_blue.svg">
 
 
             <!-- Menu Items -->
@@ -224,7 +224,7 @@
                 <div class="menu-text">Admin</div>
             </div>
 
-            <div class="menu-item logout-menu">
+            <div class="menu-item logout-menu" onclick="window.location.href='login.html'" >
                 <div class="menu-text">Logout</div>
                 <img class="logout-icon" alt="Logout" src="/static/images/box-arrow-in-right.svg">
             </div>
