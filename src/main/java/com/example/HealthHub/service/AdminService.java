@@ -13,12 +13,12 @@ public class AdminService {
     private final AdminRepository adminRepository;
 
     public AdminService(AdminRepository adminRepository) {
-        this.adminRepository = adminRepositor;
+        this.adminRepository = adminRepository;
     }
 
     public Admin createAdmin(Admin admin) {
         if (adminRepository.existsByEmail(admin.getEmail())) {
-            throw new RuntimeException("Email already in us");
+            throw new RuntimeException("Email already in use");
         }
         return adminRepository.save(admin); // No password encoding
     }
