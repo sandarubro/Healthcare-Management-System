@@ -20,6 +20,7 @@ C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\
 C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\repository\AppointmentRepository.java
 C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\repository\DoctorRepository.java
 C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\repository\PatientRepository.java
+C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\repository\PaymentRepo.java
 C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\repository\PaymentRepository.java
 C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\security\SecurityConfig.java
 C:\Users\piuma\Healthcare-Management-System\src\main\java\com\example\HealthHub\service\AdminService.java
