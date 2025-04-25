@@ -2,7 +2,6 @@ package com.example.HealthHub.service;
 
 import com.example.HealthHub.exception.PaymentNotFoundException;
 import com.example.HealthHub.model.Payment;
-import com.example.HealthHub.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
